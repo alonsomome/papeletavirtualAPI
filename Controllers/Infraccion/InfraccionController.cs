@@ -16,10 +16,22 @@ namespace papeletavirtualapp.Controllers.Infraccion
             _context = context;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetInfraccionById(int id){
+        
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> GetById(int id){
             InfraccionBusiness infraccionBusiness = new InfraccionBusiness();
             var result = infraccionBusiness.GetById(_context,id);
+            if(result.Error == false){
+                return Ok(result);
+            }else{
+                return BadRequest(result);
+            }
+        }
+
+        [HttpGet("[action]/{type}")]
+        public async Task<IActionResult> GetByType(string type){
+            InfraccionBusiness infraccionBusiness = new InfraccionBusiness();
+            var result = infraccionBusiness.GetByType(_context,type);
             if(result.Error == false){
                 return Ok(result);
             }else{

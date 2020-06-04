@@ -12,7 +12,7 @@ namespace papeletavirtualapp.Business.Papeleta
 {
     public class PapeletaBusiness
     {
-        public ResultResponse<string> AddPapeleta (PapeletaVirtualDBContext _context , PapeletaEntity model){
+        public ResultResponse<string> AddPapeleta(PapeletaVirtualDBContext _context , PapeletaEntity model){
             try
             {
                 ResultResponse<string> response = new ResultResponse<string>();
