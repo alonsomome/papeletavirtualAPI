@@ -3,6 +3,7 @@ using System.Linq;
 using papeletavirtualapp.Entities.Login;
 using papeletavirtualapp.Models;
 using papeletavirtualapp.Response.Login;
+using papeletavirtualapp.Response;
 using papeletavirtualapp.Helpers;
 using System.Transactions;
 using Microsoft.Extensions.Configuration;
@@ -35,7 +36,7 @@ namespace papeletavirtualapp.Business.Login
                         response.Message = "El numero de telefono ya existe";
                     }
                     using (var ts = new TransactionScope()){
-                        Autoridad autoridad = new Autoridad();
+                        Models.Autoridad autoridad = new Models.Autoridad();
                         _context.Autoridad.Add(autoridad);
 
                         autoridad.Name = model.Name;
@@ -93,7 +94,7 @@ namespace papeletavirtualapp.Business.Login
                 }
             }
         
-        public static void LoginTokenAutoridad(IConfiguration _config, Autoridad autoridad, ResultResponse<LoginAutoridadResponse> response)
+        public static void LoginTokenAutoridad(IConfiguration _config, Models.Autoridad autoridad, ResultResponse<LoginAutoridadResponse> response)
         {
             var jwt = new JwtService(_config);
             var token = jwt.GenerateSecurityToken(autoridad.Email);      

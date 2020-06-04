@@ -1,4 +1,4 @@
-namespace papeletavirtualapp.Response.Login
+namespace papeletavirtualapp.Response
 {
     public class ResultResponse<T>
     {

@@ -1,3 +1,4 @@
+using System;
 namespace papeletavirtualapp.Response.Login
 {
     public class LoginAutoridadResponse

@@ -118,8 +118,6 @@ namespace papeletavirtualapp.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.IdLicencia).HasColumnName("id_licencia");
-
                 entity.Property(e => e.Lastname)
                     .HasColumnName("lastname")
                     .HasMaxLength(50)
@@ -136,11 +134,6 @@ namespace papeletavirtualapp.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.State).HasColumnName("state");
-
-                entity.HasOne(d => d.IdLicenciaNavigation)
-                    .WithMany(p => p.Infractor)
-                    .HasForeignKey(d => d.IdLicencia)
-                    .HasConstraintName("FK_Infractor_Licencia");
             });
 
             modelBuilder.Entity<Licencia>(entity =>
@@ -165,6 +158,8 @@ namespace papeletavirtualapp.Models
                     .HasColumnName("expirationDate")
                     .HasColumnType("datetime");
 
+                entity.Property(e => e.IdInfractor).HasColumnName("id_infractor");
+
                 entity.Property(e => e.NumLicencia)
                     .HasColumnName("numLicencia")
                     .HasMaxLength(50)
@@ -174,6 +169,11 @@ namespace papeletavirtualapp.Models
                     .HasColumnName("restriction")
                     .HasMaxLength(500)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.IdInfractorNavigation)
+                    .WithMany(p => p.Licencia)
+                    .HasForeignKey(d => d.IdInfractor)
+                    .HasConstraintName("FK_Licencia_Infractor");
             });
 
             modelBuilder.Entity<Papeleta>(entity =>

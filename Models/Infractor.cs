@@ -7,6 +7,7 @@ namespace papeletavirtualapp.Models
     {
         public Infractor()
         {
+            Licencia = new HashSet<Licencia>();
             Papeleta = new HashSet<Papeleta>();
         }
 
@@ -14,13 +15,12 @@ namespace papeletavirtualapp.Models
         public string Name { get; set; }
         public string Lastname { get; set; }
         public string Dni { get; set; }
-        public int? IdLicencia { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public bool? State { get; set; }
         public DateTime? CreateDate { get; set; }
 
-        public virtual Licencia IdLicenciaNavigation { get; set; }
+        public virtual ICollection<Licencia> Licencia { get; set; }
         public virtual ICollection<Papeleta> Papeleta { get; set; }
     }
 }

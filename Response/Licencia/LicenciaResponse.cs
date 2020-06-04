@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 
-namespace papeletavirtualapp.Models
+namespace papeletavirtualapp.Response.Licencia
 {
-    public partial class Licencia
+    public class LicenciaResponse
     {
         public int Id { get; set; }
         public string NumLicencia { get; set; }
@@ -11,9 +10,6 @@ namespace papeletavirtualapp.Models
         public string Category { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? ExpirationDate { get; set; }
-        public string Restriction { get; set; }
-        public int? IdInfractor { get; set; }
-
-        public virtual Infractor IdInfractorNavigation { get; set; }
+        public string Restriction { get; set; }     
     }
 }
