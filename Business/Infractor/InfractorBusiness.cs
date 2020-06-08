@@ -73,10 +73,12 @@ namespace papeletavirtualapp.Business.Infractor
             }
         }
 
-        public ResultResponse<string> Add(PapeletaVirtualDBContext _context, InfractorEntity model){
+        public ResultResponse<InfractorResponse> Add(PapeletaVirtualDBContext _context, InfractorEntity model){
             try
             {
-                ResultResponse<string> response = new ResultResponse<string>();
+                InfractorResponse infractorResponseforAdd;
+                //ResultResponse<string> response = new ResultResponse<string>();
+                ResultResponse<InfractorResponse> response = new ResultResponse<InfractorResponse>();
                 if(model.Dni == null){
                     response.Data = null;
                     response.Error = true;
@@ -102,24 +104,37 @@ namespace papeletavirtualapp.Business.Infractor
                         return response;
                 }else
                 {
-                        using (var ts = new TransactionScope()){
-                        Models.Infractor infractor = new Models.Infractor();
-                        _context.Infractor.Add(infractor);
+                    using (var ts = new TransactionScope()){
+                    Models.Infractor infractor = new Models.Infractor();
+                    _context.Infractor.Add(infractor);
 
-                        infractor.Name= model.Name;
-                        infractor.Lastname= model.Lastname;
-                        infractor.Dni = model.Dni;
-                        infractor.Email = model.Email;
-                        infractor.Phone = model.Phone;
-                        infractor.State = ConstantHelpers.Estado.Activo;
-                        infractor.CreateDate = model.CreateDate;
+                    infractor.Name= model.Name;
+                    infractor.Lastname= model.Lastname;
+                    infractor.Dni = model.Dni;
+                    infractor.Email = model.Email;
+                    infractor.Phone = model.Phone;
+                    infractor.State = ConstantHelpers.Estado.Activo;
+                    infractor.CreateDate = model.CreateDate;
 
-                        _context.SaveChanges();
-                        ts.Complete();
-                        response.Data = null;
-                        response.Error = false;
-                        response.Message = "Infractor registrado con éxito";  
+                    _context.SaveChanges();
+                    ts.Complete();
                     }
+                    var result = _context.Infractor.FirstOrDefault(x=>x.Dni ==model.Dni);
+                    infractorResponseforAdd = new InfractorResponse{
+                        Id = result.Id,
+                        Name = result.Name,
+                        Lastname = result.Lastname,
+                        Dni = result.Dni,
+                        Email = result.Email,
+                        Phone = result.Phone,
+                        State = result.State,
+                        CreateDate = result.CreateDate                        
+                    };
+                    response.Data = infractorResponseforAdd;
+                    response.Error = false;
+                    response.Message = "Infractor registrado con éxito";  
+
+
                 }
                 return  response;                
             }

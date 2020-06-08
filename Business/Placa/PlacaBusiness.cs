@@ -10,10 +10,11 @@ namespace papeletavirtualapp.Business.Placa
 {
     public class PlacaBusiness
     {
-        public ResultResponse<string> AddPlaca(PapeletaVirtualDBContext _context, PlacaEntity model){
+        public ResultResponse<PlacaResponse> AddPlaca(PapeletaVirtualDBContext _context, PlacaEntity model){
             try
             {
-                ResultResponse<string> response = new ResultResponse<string>();
+                PlacaResponse placaResponseforAdd ;
+                ResultResponse<PlacaResponse> response = new ResultResponse<PlacaResponse>();
                 if(model==null){
                     response.Data = null;
                     response.Error = true;
@@ -40,8 +41,21 @@ namespace papeletavirtualapp.Business.Placa
                         response.Data = null;
                         response.Error = false;
                         response.Message = "Placa registrada";  
-
                     }
+                    var result = _context.Placa.FirstOrDefault(x=>x.NumPlaca ==model.NumPlaca);
+                    placaResponseforAdd = new PlacaResponse{
+                        Id = result.Id,
+                        CarBrand = result.CarBrand,
+                        CarModel = result.CarModel,
+                        ReleaseDate = result.ReleaseDate,
+                        TransportDetails = result.TransportDetails,
+                        NumPlaca = result.NumPlaca                 
+                        
+                    };
+                        response.Data = placaResponseforAdd;
+                        response.Error = false;
+                        response.Message = "Placa registrada";                      
+
                 }
                 return response;
             }
