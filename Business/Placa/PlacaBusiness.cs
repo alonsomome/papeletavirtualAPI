@@ -65,5 +65,37 @@ namespace papeletavirtualapp.Business.Placa
                 throw new System.Exception(ex.Message);
             }
         }
+   
+        public ResultResponse<PlacaResponse> getByPlaca(PapeletaVirtualDBContext _context,string numplaca){
+            try
+            {
+                ResultResponse<PlacaResponse> response = new ResultResponse<PlacaResponse>();
+                var firstresult = _context.Placa.Any(x=>x.NumPlaca == numplaca );
+                if(firstresult){
+                    var result = _context.Placa.FirstOrDefault(x=>x.NumPlaca == numplaca);
+                    PlacaResponse placaResponse = new PlacaResponse{
+                        Id= result.Id,
+                        CarBrand = result.CarBrand,
+                        CarModel = result.CarModel,
+                        ReleaseDate = result.ReleaseDate,
+                        TransportDetails = result.TransportDetails,
+                        NumPlaca = result.NumPlaca                        
+                    };
+                    response.Data = placaResponse;
+                    response.Error = false;
+                    response.Message ="Datos encontrados";                        
+                }else{
+                    response.Data = null;
+                    response.Error = true;
+                    response.Message ="Datos no encontrados";                      
+                }
+                return response;
+            }
+            catch (Exception ex)
+            {                
+                throw new Exception(ex.Message);
+            }
+        }    
+   
     }
 }

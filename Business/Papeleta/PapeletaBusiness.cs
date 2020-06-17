@@ -7,6 +7,7 @@ using papeletavirtualapp.Response.Papeleta;
 using papeletavirtualapp.Helpers;
 using System.Transactions;
 using Microsoft.Extensions.Configuration;
+using papeletavirtualapp.Response.Placa;
 
 namespace papeletavirtualapp.Business.Papeleta
 {
@@ -64,5 +65,7 @@ namespace papeletavirtualapp.Business.Papeleta
             }
         }
         
+
+ 
     }
 }

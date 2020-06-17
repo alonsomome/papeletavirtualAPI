@@ -33,6 +33,18 @@ namespace papeletavirtualapp.Controllers.Placa
             }
         }
 
+        [HttpGet("[action]/{numplaca}")]
+        public async Task<IActionResult> getByPlaca(string numplaca){
+            PlacaBusiness placaBusiness = new PlacaBusiness();
+            var response = placaBusiness.getByPlaca(_context,numplaca);
+            if(response.Error == false){
+                return Ok(response);
+            }else{
+                return BadRequest(response);
+            }
+        }
+
+
         
     }
 }
