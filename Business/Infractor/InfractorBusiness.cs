@@ -5,6 +5,7 @@ using papeletavirtualapp.Entities.Infractor;
 using papeletavirtualapp.Helpers;
 using papeletavirtualapp.Models;
 using papeletavirtualapp.Response;
+using papeletavirtualapp.Response.Infraccion;
 using papeletavirtualapp.Response.Infractor;
 using papeletavirtualapp.Response.Licencia;
 using papeletavirtualapp.Response.Papeleta;
@@ -33,14 +34,21 @@ namespace papeletavirtualapp.Business.Infractor
                         Papeleta = _context.Papeleta.Where(y=>y.IdInfractor == result.Id).Select( 
                             y=> new PapeletaResponse{
                                     Id= y.Id,
-                                    IdInfractor=y.IdInfractor,
-                                    IdInfraccion = y.IdInfraccion,
                                     CreateDate = y.CreateDate,
                                     Photo = y.Photo,
                                     State = y.State,
                                     Details = y.Details,
                                     City = y.City,
-                                    IdAutoridad= y.IdAutoridad
+                                    IdAutoridad= y.IdAutoridad,
+                                    Infraccion = _context.Infraccion.Where(z=>z.Id == y.IdInfraccion).Select(
+                                        z => new InfraccionResponse{
+                                            Id = z.Id,
+                                            Type=z.Type,
+                                            Code = z.Code,
+                                            Price = z.Price,
+                                            Details = z.Details                                            
+                                        }
+                                    ).ToList()                                    
                                 }
                         ).ToList(),
                         Licencia = _context.Licencia.Where(y=>y.IdInfractor == result.Id).Select(
@@ -164,14 +172,33 @@ namespace papeletavirtualapp.Business.Infractor
                         Papeleta = _context.Papeleta.Where(y=>y.IdInfractor == result.Id).Select( 
                             y=> new PapeletaResponse{
                                     Id= y.Id,
-                                    IdInfractor=y.IdInfractor,
-                                    IdInfraccion = y.IdInfraccion,
                                     CreateDate = y.CreateDate,
                                     Photo = y.Photo,
                                     State = y.State,
                                     Details = y.Details,
                                     City = y.City,
-                                    IdAutoridad= y.IdAutoridad
+                                    IdAutoridad= y.IdAutoridad,                                    
+                                    Infractor = _context.Infractor.Where(w=>w.Id == y.IdInfractor).Select(
+                                        w => new InfractorResponse{
+                                            Id=w.Id,
+                                            Name = w.Name,
+                                            Lastname = w.Lastname,
+                                            Dni = w.Dni,
+                                            Email = w.Email,
+                                            Phone = w.Phone,
+                                            State = w.State,
+                                            CreateDate = w.CreateDate
+                                        }
+                                    ).ToList(),
+                                    Infraccion = _context.Infraccion.Where(z=>z.Id == y.IdInfraccion).Select(
+                                        z => new InfraccionResponse{
+                                            Id = z.Id,
+                                            Type=z.Type,
+                                            Code = z.Code,
+                                            Price = z.Price,
+                                            Details = z.Details                                            
+                                        }
+                                    ).ToList()
                                 }
                         ).ToList(),
                         Licencia = _context.Licencia.Where(y=>y.IdInfractor == result.Id).Select(

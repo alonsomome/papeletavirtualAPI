@@ -35,6 +35,7 @@ namespace papeletavirtualapp.Business.Placa
                         placa.CarModel=model.CarModel;
                         placa.TransportDetails = model.TransportDetails;
                         placa.NumPlaca = model.NumPlaca;
+                        
 
                         _context.SaveChanges();
                         ts.Complete();

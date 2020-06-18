@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using papeletavirtualapp.Response.Infraccion;
+using papeletavirtualapp.Response.Infractor;
 using papeletavirtualapp.Response.Papeleta;
 
 namespace papeletavirtualapp.Response.Autoridad
@@ -16,6 +18,6 @@ namespace papeletavirtualapp.Response.Autoridad
         public string Cip { get; set; }
 
         public List<PapeletaResponse> Papeleta {get; set;} = new List<PapeletaResponse>();
-              
+        
     }
 }
